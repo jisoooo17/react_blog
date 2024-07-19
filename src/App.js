@@ -13,28 +13,21 @@ function App() {
         <h4 style={{color: "#fff", fontSize: 18}}>Blog</h4>
       </div>
 
-      {/* <button onClick={()=>{
-        let newTitle = [...title];
-        newTitle[0] = "남자 코트 추천";
-        setTitle(newTitle);
-      }}>btn</button>
+      <button onClick={()=>{
+        let sortedTitle1 = [...title];
+        sortedTitle1.sort();
+        setTitle(sortedTitle1);
+      }}>오름차순 정렬</button>
 
-      {title.map((q, i)=>{
-        return(
-          <div className="list" key={q}>
-            <h4>{q}
-              <span onClick={()=>{
-                let newLike = [...like];
-                newLike[i] += 1;
-                setLike(newLike);
-              }}>👍</span>
-              {like[i]}
-            </h4>
-            <p>2월 17일 발행</p>
-          </div>
-        )
-      })} */}
-
+      <button onClick={()=>{
+        let sortedTitle2 = [...title];
+        sortedTitle2.sort(function(a, b){
+          if (a > b) return -1;
+          if (a < b) return 1;
+          return 0;
+        });
+        setTitle(sortedTitle2);
+      }}>내림차순 정렬</button>
 
       <div className="list">
         <button onClick={()=>{
