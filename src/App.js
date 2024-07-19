@@ -3,11 +3,11 @@ import { useState } from "react";
 import "./App.css";
 
 function App() {
-  let [title, setTitle] = useState(["여자 코트 추천", "남자 바지 추천", "예쁜 양말"]);
-  let [like, setLike] = useState(0);
-  // let [like, setLike] = useState([0, 0, 0]);
-
+  let [title, setTitle] = useState(["여자 코트 추천", "남자 바지 추천", "캐릭터 양말", "백팩 추천"]);
+  let [like, setLike] = useState([0, 0, 0, 0]);
   let [modal, setModal] = useState(false);
+  // let [modalTit, setModalTit] = useState(0);
+  let [modalTit, setModalTit] = useState(0);
 
   return (
     <div className="App">
@@ -31,7 +31,27 @@ function App() {
         setTitle(sortedTitle2);
       }}>내림차순 정렬</button>
 
-      <div className="list">
+      {/* 반복문 사용 */}
+      {
+        title.map((q, i)=>{
+          return (
+            <div className="list" key={q}>
+              <h4 onClick={()=>{setModal(!modal);              setModalTit(i)}}>
+                {/* {q} */}
+                {title[i]}
+                <span onClick={()=>{
+                  let newLike = [...like];
+                  newLike[i] += 1;
+                  setLike(newLike);
+                }}>👍</span> {like[i]}
+              </h4>
+              <p>2월 17일 발행</p>
+            </div>
+          )
+        })
+      }
+
+      {/* <div className="list">
         <button onClick={()=>{
           let newTitle = [...title];
           newTitle[0] = "남자 코트 추천";
@@ -50,23 +70,51 @@ function App() {
           setModal(!modal)
         }}>{title[2]}</h4>
         <p>2월 17일 발행</p>
-      </div>
+      </div> */}
 
       {
-        modal == true ? <Modal/> : null
-      }
+        // modal == true ? <Modal name={title} color={"green"}/> : null
+        // modal == true ? <Modal name={title} color="orange"/> : null
+        // modal == true ? <Modal modalTit={modalTit} title={title} setTitle={setTitle} color={"green"}/> : null
+        modal == true ? <Modal title={title} modalTit={modalTit}/> : null
 
+      }
     </div>
   );
 }
 
-function Modal(){
+function Modal(props){
   return (
+    // <div className="modal" style={{background: props.color}}>
+    //   <h4>{props.name[0]}</h4>
+    //   <p>날짜</p>
+    //   <p>상세 내용</p>
+    // </div>
+
+
+    // <div className="modal">
+    //   <h4>제목</h4>
+    //   <p>날짜</p>
+    //   <p>상세 내용</p>
+    // </div>
+
+    // <div className="modal" style={{background: props.color}}>
+    //   <h4>{props.title[props.modalTit]}</h4>
+    //   <p>날짜</p>
+    //   <p>상세 내용</p>
+    //   <button onClick={()=>{
+    //     let newTitle = [...props.title];
+    //     newTitle[0] = "남자 코트 추천";
+    //     props.setTitle(newTitle);
+    //   }}>수정</button>
+    // </div>
+
     <div className="modal">
-      <h4>제목</h4>
+      <h4>{props.title[props.modalTit]}</h4>
       <p>날짜</p>
       <p>상세 내용</p>
     </div>
+
   )
 }
 
