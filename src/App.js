@@ -6,7 +6,6 @@ function App() {
   let [title, setTitle] = useState(["여자 코트 추천", "남자 바지 추천", "캐릭터 양말", "백팩 추천"]);
   let [like, setLike] = useState([0, 0, 0, 0]);
   let [modal, setModal] = useState(false);
-  // let [modalTit, setModalTit] = useState(0);
   let [modalTit, setModalTit] = useState(0);
 
   return (
@@ -36,8 +35,7 @@ function App() {
         title.map((q, i)=>{
           return (
             <div className="list" key={q}>
-              <h4 onClick={()=>{setModal(!modal);              setModalTit(i)}}>
-                {/* {q} */}
+              <h4 onClick={()=>{setModal(!modal); setModalTit(i)}}>
                 {title[i]}
                 <span onClick={()=>{
                   let newLike = [...like];
@@ -76,7 +74,8 @@ function App() {
         // modal == true ? <Modal name={title} color={"green"}/> : null
         // modal == true ? <Modal name={title} color="orange"/> : null
         // modal == true ? <Modal modalTit={modalTit} title={title} setTitle={setTitle} color={"green"}/> : null
-        modal == true ? <Modal title={title} modalTit={modalTit}/> : null
+        // modal == true ? <Modal/> : null
+        modal == true ? <Modal title={title} setTitle={setTitle} modalTit={modalTit}/> : null
 
       }
     </div>
@@ -108,7 +107,6 @@ function Modal(props){
     //     props.setTitle(newTitle);
     //   }}>수정</button>
     // </div>
-
     <div className="modal">
       <h4>{props.title[props.modalTit]}</h4>
       <p>날짜</p>
