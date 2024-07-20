@@ -8,7 +8,6 @@ function App() {
   let [modal, setModal] = useState(false);
   let [modalTit, setModalTit] = useState(0);
   let [input, setInput] = useState("");
-  
 
   return (
     <div className="App">
@@ -60,14 +59,19 @@ function App() {
       }
 
       {/* input */}
-      <input type="text" onChange={(e)=>{
+      <input type="text" value={input} onChange={(e)=>{
         setInput(e.target.value); 
       }}/>
 
-      <button onClick={()=>{
-        let newTitle = [...title];
-        newTitle.unshift(input);
-        setTitle(newTitle)
+      <button onClick={(e)=>{
+        if(input !== ""){
+          let newTitle = [...title];
+          newTitle.unshift(input);
+          setTitle(newTitle);
+          setInput("")
+        } else {
+          alert("글을 입력하세요.")
+        }
       }}>글발행</button>
 
       {/* <div className="list">
