@@ -7,6 +7,8 @@ function App() {
   let [like, setLike] = useState([0, 0, 0, 0]);
   let [modal, setModal] = useState(false);
   let [modalTit, setModalTit] = useState(0);
+  let [input, setInput] = useState("");
+  
 
   return (
     <div className="App">
@@ -35,19 +37,38 @@ function App() {
         title.map((q, i)=>{
           return (
             <div className="list" key={q}>
-              <h4 onClick={()=>{setModal(!modal); setModalTit(i)}}>
+              <h4 onClick={()=>{setModal(!modal); setModalTit(i);}}>
                 {title[i]}
-                <span onClick={()=>{
+                <span onClick={(e)=>{
+                  e.stopPropagation();
                   let newLike = [...like];
                   newLike[i] += 1;
                   setLike(newLike);
                 }}>👍</span> {like[i]}
               </h4>
               <p>2월 17일 발행</p>
+
+              {/* 글 삭제 */}
+              <button onClick={()=>{
+                let newTitle = [...title];
+                newTitle.splice(i, 1);
+                setTitle(newTitle);
+              }}>삭제</button>
             </div>
           )
         })
       }
+
+      {/* input */}
+      <input type="text" onChange={(e)=>{
+        setInput(e.target.value); 
+      }}/>
+
+      <button onClick={()=>{
+        let newTitle = [...title];
+        newTitle.unshift(input);
+        setTitle(newTitle)
+      }}>글발행</button>
 
       {/* <div className="list">
         <button onClick={()=>{
@@ -76,7 +97,6 @@ function App() {
         // modal == true ? <Modal modalTit={modalTit} title={title} setTitle={setTitle} color={"green"}/> : null
         // modal == true ? <Modal/> : null
         modal == true ? <Modal title={title} setTitle={setTitle} modalTit={modalTit}/> : null
-
       }
     </div>
   );
@@ -89,7 +109,6 @@ function Modal(props){
     //   <p>날짜</p>
     //   <p>상세 내용</p>
     // </div>
-
 
     // <div className="modal">
     //   <h4>제목</h4>
